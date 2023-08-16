@@ -1,5 +1,5 @@
 import { Context, Schema, h, sleep, Logger } from 'koishi'
-import puppeteer, { Browser, Page, ElementHandle } from "puppeteer-core"
+import puppeteer, { Browser, Page } from "puppeteer-core"
 import crypto from 'crypto'
 import find from 'puppeteer-finder'
 
@@ -455,7 +455,8 @@ ${rankInfo.map((player, index) => ` ${String(index + 1).padStart(2, ' ')}   ${pl
         // 随机生成 userAgent 字符串
         const userAgent = randomUserAgent();
         // 创建一个新的页面，并返回一个 page 对象
-        const page: Page = await browser.newPage();
+        const context = await browser.createIncognitoBrowserContext();
+        const page = await context.newPage();
         await page.setUserAgent(userAgent);
         // 设置页面视口大小
         await page.setViewport({
@@ -579,7 +580,6 @@ ${rankInfo.map((player, index) => ` ${String(index + 1).padStart(2, ' ')}   ${pl
     async function screenshotPage(page: Page) {
         // 获取目标元素的句柄，使用CSS选择器
         const element = await page.$('div#container.border1');
-
         let screenshot: Buffer;
         // 如果找到了目标元素，就对它进行截图，并返回一个 Buffer 对象
         if (element) {

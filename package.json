@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-minesweeper",
   "description": "简单的的扫雷游戏，可标记，自带扫雷提示算法，以及无猜特性。",
-  "version": "0.0.1",
+  "version": "0.0.6",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
