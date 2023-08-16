@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-minesweeper",
   "description": "简单的的扫雷游戏，可标记，自带扫雷提示算法，以及无猜特性。",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -10,10 +10,10 @@
   ],
   "license": "MIT",
   "author": "Nawyjx <3373167460@qq.com>",
-  "homepage": "https://www.npmjs.com/package/koishi-plugin-shindan-maker?activeTab=readme",
+  "homepage": "https://www.npmjs.com/package/koishi-plugin-minesweeper?activeTab=readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/araea/koishi-plugin-shindan-maker.git"
+    "url": "git+https://github.com/araea/koishi-plugin-minesweeper.git"
   },
   "scripts": {},
   "keywords": [
