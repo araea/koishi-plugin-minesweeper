@@ -13,6 +13,8 @@ export const usage = `## 🌠 后续计划
 
 - 请确保你能够打开这个网站 [JS Minesweeper (zwolfrost.github.io)](https://zwolfrost.github.io/JSMinesweeper/)
 
+- 注意：可以一次翻开多个单元格，用逗号(中英文均可)或空格分隔，如 \`minesweeper.open 0,66,11\`
+
 ## ⚙️ 配置
 
 \`isEnableImageCompression\`：是否压缩图片，默认为 false
@@ -331,19 +333,7 @@ function registerAllKoishiCommands(ctx: Context, config: Config) {
                 }
             }
 
-            // 定义一个异步函数，接受一个id参数，返回一个布尔值表示是否被标记
-            async function isMarked(page: Page, id: string): Promise<boolean> {
-                // 获取想要检查的元素
-                const element = await page.$(`td[id='${id}']`);
-                // 获取该元素的innerHTML属性
-                const innerHTML = await element.evaluate(el => el.innerHTML);
-                // 判断该元素是否被标记
-                if (innerHTML.includes('🚩')) {
-                    return true
-                } else {
-                    return false
-                }
-            }
+
         })
     // rank
     ctx.command('minesweeper.rank', '查看扫雷排行榜')
@@ -492,11 +482,23 @@ ${rankInfo.map((player, index) => ` ${String(index + 1).padStart(2, ' ')}   ${pl
         // 返回 page 对象
         return page;
     }
-
+    // 定义一个异步函数，接受一个id参数，返回一个布尔值表示是否被标记
+    async function isMarked(page: Page, id: string): Promise<boolean> {
+        // 获取想要检查的元素
+        const element = await page.$(`td[id='${id}']`);
+        // 获取该元素的innerHTML属性
+        const innerHTML = await element.evaluate(el => el.innerHTML);
+        // 判断该元素是否被标记
+        if (innerHTML.includes('🚩')) {
+            return true
+        } else {
+            return false
+        }
+    }
     // 定义一个异步函数，用于在页面上添加 id
     async function addIds(page: Page) {
         // 一次性获取所有的 close border1 元素，并对它们进行操作
-        await page.$$eval('.close.border1', (elements: any) => {
+        await page.$$eval('.close.border1', async (elements: any) => {
             // 遍历每个元素
             for (const element of elements) {
                 // 获取元素的 id 属性
